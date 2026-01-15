@@ -1,7 +1,7 @@
 // Mobile Menu Toggle
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
-const links = document.querySelectorAll('.nav-links li');
+
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
@@ -9,20 +9,26 @@ hamburger.addEventListener('click', () => {
 });
 
 // Close mobile menu when clicking a link
-links.forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
+// Smooth scrolling for navigation links
+document.querySelectorAll('.nav-links a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+
+            // Close mobile menu if open
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
     });
 });
 
-// Close mobile menu when clicking a link
-links.forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
-    });
-});
+
 
 // Active Link Highlighting on Scroll
 const sections = document.querySelectorAll('section');
@@ -52,7 +58,7 @@ window.addEventListener('scroll', () => {
 
 // Intersection Observer for Scroll Animations
 const observerOptions = {
-    threshold: 0.2, // Trigger when 20% of element is visible
+    threshold: 0.05, // Lower threshold for mobile devices and tall sections
     rootMargin: "0px 0px -50px 0px"
 };
 
@@ -61,7 +67,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
         } else {
-            entry.target.classList.remove('animate-in'); // Reset animation when out of view
+            entry.target.classList.remove('animate-in');
         }
     });
 }, observerOptions);
