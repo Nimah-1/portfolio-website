@@ -99,8 +99,20 @@ greetingSpan.textContent = greetingText;
 
 // Video Facade Logic
 document.querySelectorAll('.video-facade').forEach(facade => {
+    const videoSrc = facade.getAttribute('data-src');
+
+    // Auto-generate Cloudinary thumbnail
+    if (videoSrc && videoSrc.includes('res.cloudinary.com')) {
+        // Replace video extension with .jpg for thumbnail
+        // Handles .mp4, .mov, .webm, etc.
+        const thumbnailSrc = videoSrc.replace(/\.(mp4|mov|webm|mkv)$/i, '.jpg');
+
+        facade.style.backgroundImage = `url('${thumbnailSrc}')`;
+        facade.style.backgroundSize = 'cover';
+        facade.style.backgroundPosition = 'center';
+    }
+
     facade.addEventListener('click', function () {
-        const videoSrc = this.getAttribute('data-src');
         const videoElement = document.createElement('video');
         videoElement.src = videoSrc;
         videoElement.controls = true;
@@ -114,5 +126,7 @@ document.querySelectorAll('.video-facade').forEach(facade => {
         this.appendChild(videoElement);
         this.classList.remove('video-facade'); // Remove class to prevent re-triggering style
         this.style.cursor = 'default';
+        // Reset background to avoid showing thumbnail behind video if transparent (though video covers it)
+        this.style.backgroundImage = 'none';
     });
 });
