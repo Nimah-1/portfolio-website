@@ -57,9 +57,10 @@ window.addEventListener('scroll', () => {
 });
 
 // Intersection Observer for Scroll Animations
+// Intersection Observer for Scroll Animations
 const observerOptions = {
-    threshold: 0.05, // Lower threshold for mobile devices and tall sections
-    rootMargin: "0px 0px -50px 0px"
+    threshold: 0.1, // Wait until 10% is visible to animate in
+    rootMargin: "0px 0px 0px 0px" // Standard margin, no negative offsets to avoid early fade-out
 };
 
 const observer = new IntersectionObserver((entries) => {
