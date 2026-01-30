@@ -1163,3 +1163,91 @@ footer {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+/* Web Development Projects */
+.web-project-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.web-project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.2);
+    border-color: var(--accent-color);
+}
+
+.web-project-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.web-project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.web-project-card:hover .web-project-image img {
+    transform: scale(1.05);
+}
+
+.web-project-info {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.web-project-info h4 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.web-project-info p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    flex: 1;
+}
+
+.visit-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    transition: var(--transition);
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.visit-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.visit-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: rgba(200, 200, 200, 0.1);
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.visit-btn.disabled:hover {
+    background: rgba(200, 200, 200, 0.1);
+    color: var(--text-secondary);
+}
