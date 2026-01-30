@@ -67,14 +67,17 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
-        } else {
-            entry.target.classList.remove('animate-in');
+            // Animate once and stop observing. fix for "fading out" issue.
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Add animation class to sections
 document.querySelectorAll('.section, .hero, .card, .timeline-item').forEach(el => {
+    // Exclude Canva Designs section from fade-in animation
+    if (el.id === 'canva-designs') return;
+
     el.classList.add('fade-in-section');
     observer.observe(el);
 });
@@ -93,3 +96,23 @@ if (hour >= 5 && hour < 12) {
 }
 
 greetingSpan.textContent = greetingText;
+
+// Video Facade Logic
+document.querySelectorAll('.video-facade').forEach(facade => {
+    facade.addEventListener('click', function () {
+        const videoSrc = this.getAttribute('data-src');
+        const videoElement = document.createElement('video');
+        videoElement.src = videoSrc;
+        videoElement.controls = true;
+        videoElement.autoplay = true;
+        videoElement.style.width = '100%';
+        videoElement.style.height = '100%';
+        videoElement.style.objectFit = 'cover';
+        videoElement.style.borderRadius = '15px';
+
+        this.innerHTML = ''; // Clear the placeholder content
+        this.appendChild(videoElement);
+        this.classList.remove('video-facade'); // Remove class to prevent re-triggering style
+        this.style.cursor = 'default';
+    });
+});

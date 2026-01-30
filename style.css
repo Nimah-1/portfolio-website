@@ -276,6 +276,52 @@ textarea,
     display: block;
 }
 
+/* Video Facade (Lazy Load) */
+.video-facade {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    position: relative;
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-facade:hover .play-button {
+    background: rgba(14, 165, 233, 0.9);
+    transform: scale(1.1);
+}
+
+.play-button {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 2;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.video-title {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    opacity: 0.8;
+}
+
 /* Video Placeholder */
 .video-container-placeholder {
     width: 100%;
@@ -333,6 +379,26 @@ textarea,
 audio {
     width: 100%;
     margin-top: auto;
+}
+
+audio {
+    width: 100%;
+    margin-top: auto;
+}
+
+/* Specific Video Sizing */
+.intro-video-container {
+    max-width: 1050px;
+    /* Increased size */
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* Enforce stable aspect ratio */
+    margin: 0 auto;
+    background: #000;
+    /* Background for when loading */
+    border-radius: 15px;
+    /* Match facade radius */
+    overflow: hidden;
 }
 
 /* Hero Section */
@@ -1001,7 +1067,24 @@ footer {
     text-align: center;
     position: relative;
     padding-top: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    /* Removed border */
+    /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
+}
+
+/* Reduce gap between Portfolio (Voiceover) and Canva Designs */
+#portfolio {
+    padding-bottom: 1rem;
+    /* Reduced from default 6rem */
+}
+
+#canva-designs {
+    padding-top: 1rem;
+    /* Reduced from default 6rem */
+}
+
+/* Remove bottom margin from the last item in portfolio to pull them closer */
+#portfolio .portfolio-category:last-child {
+    margin-bottom: 0;
 }
 
 .canva-section-header h2 {
