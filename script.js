@@ -67,8 +67,9 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
-            // Animate once and stop observing. fix for "fading out" issue.
-            observer.unobserve(entry.target);
+        } else {
+            // Re-enable animation for next viewing
+            entry.target.classList.remove('animate-in');
         }
     });
 }, observerOptions);
