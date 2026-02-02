@@ -868,8 +868,7 @@ footer {
 /* Media Queries */
 @media (max-width: 768px) {
     .nav-links {
-        display: none;
-        /* Hide for now, enable with JS */
+        display: flex;
         flex-direction: column;
         position: absolute;
         top: 80px;
@@ -877,22 +876,53 @@ footer {
         width: 100%;
         background: var(--bg-color);
         padding: 2rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+        pointer-events: none;
+        z-index: 1000;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .nav-links.active {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    /* Fix logo visibility and z-index */
+    .logo {
+        z-index: 1001;
+        position: relative;
+    }
+
+    /* Force visibility of sections on mobile if they were stuck */
+    .fade-in-section {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
 
     .hamburger {
         display: block;
+        z-index: 1001;
+        position: relative;
+        transition: var(--transition);
+    }
+
+    .hamburger.active {
+        color: var(--accent-color);
     }
 
     .hero {
         flex-direction: column;
         text-align: center;
         justify-content: center;
-        padding-top: 120px;
+        padding-top: 100px;
+        padding-bottom: 2rem;
     }
 
     .hero-content {
@@ -1053,14 +1083,73 @@ footer {
 
 /* Scroll Animations */
 .fade-in-section {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    /* Visible by default for safety */
+    transform: translateY(0);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.animate-in {
-    opacity: 1;
-    transform: translateY(0);
+/* State when JS hides the element to prepare for reveal */
+.fade-in-section.is-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.fade-in-section.animate-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Mobile Media Queries */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        /* Reset to simple hide/show if transitions were buggy */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-color);
+        padding: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hamburger {
+        display: block;
+        z-index: 1001;
+        position: relative;
+    }
+
+    .hamburger.active {
+        color: var(--accent-color);
+    }
+
+    /* Guarantee visibility on mobile */
+    .fade-in-section {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }
 
 /* Canva Designs Section Specifics */
@@ -1070,19 +1159,15 @@ footer {
     text-align: center;
     position: relative;
     padding-top: 1rem;
-    /* Removed border */
-    /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
 }
 
 /* Reduce gap between Portfolio (Voiceover) and Canva Designs */
 #portfolio {
     padding-bottom: 1rem;
-    /* Reduced from default 6rem */
 }
 
 #canva-designs {
     padding-top: 1rem;
-    /* Reduced from default 6rem */
 }
 
 /* Remove bottom margin from the last item in portfolio to pull them closer */
