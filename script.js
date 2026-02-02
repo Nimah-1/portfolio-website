@@ -66,9 +66,27 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
+            // Add a small delay to prevent "fly-by" animations when scrolling past sections (like Portfolio) quickly
+            setTimeout(() => {
+                // Check if the element is still actually visible in the viewport
+                const rect = entry.target.getBoundingClientRect();
+                const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+                const windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+                // Check if element is in viewport
+                const isInViewport = (
+                    rect.top <= windowHeight &&
+                    rect.top + rect.height >= 0 &&
+                    rect.left <= windowWidth &&
+                    rect.left + rect.width >= 0
+                );
+
+                if (isInViewport) {
+                    entry.target.classList.add('animate-in');
+                }
+            }, 150); // 150ms delay to filter out fast scrolls
         } else {
-            // Re-enable animation for next viewing
+            // Remove the class to allow it to animate again next time it enters
             entry.target.classList.remove('animate-in');
         }
     });
