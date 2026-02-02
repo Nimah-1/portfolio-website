@@ -262,6 +262,7 @@ textarea,
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .portfolio-item:hover {
@@ -509,6 +510,7 @@ audio {
     object-fit: cover;
     border-radius: 50%;
     border: 5px solid var(--bg-color);
+    will-change: transform;
 }
 
 @keyframes float {
@@ -733,6 +735,7 @@ audio {
     padding: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: var(--transition);
+    will-change: transform;
 }
 
 .card:hover {
@@ -1333,4 +1336,11 @@ footer {
 .visit-btn.disabled:hover {
     background: rgba(200, 200, 200, 0.1);
     color: var(--text-secondary);
+}
+
+/* Fix Aspect Ratio for CapCut Reels (Vertical) */
+#capcut-edits .video-facade {
+    aspect-ratio: 9 / 16;
+    max-width: 300px;
+    margin: 0 auto;
 }

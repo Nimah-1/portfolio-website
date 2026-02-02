@@ -117,6 +117,7 @@ document.querySelectorAll('.video-facade').forEach(facade => {
         videoElement.src = videoSrc;
         videoElement.controls = true;
         videoElement.autoplay = true;
+        videoElement.playsInline = true; // Better mobile experience
         videoElement.style.width = '100%';
         videoElement.style.height = '100%';
         videoElement.style.objectFit = 'cover';
