@@ -1429,3 +1429,33 @@ footer {
     max-width: 300px;
     margin: 0 auto;
 }
+
+/* Performance Optimizations for Mobile */
+@media (max-width: 768px) {
+
+    .card,
+    .timeline-content,
+    .about-container,
+    .skill-category,
+    .input,
+    textarea,
+    .contact-form input,
+    .contact-form textarea {
+        backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .decorative-orb {
+        display: none !important;
+    }
+
+    .img-container {
+        animation: none !important;
+    }
+
+    .video-facade:hover .play-button {
+        transform: none !important;
+    }
+}

@@ -43,24 +43,31 @@ document.querySelectorAll('.nav-links a, .pill-btn').forEach(anchor => {
 const sections = document.querySelectorAll('section');
 const navItems = document.querySelectorAll('.nav-links a');
 
+let scrollTimeout;
 window.addEventListener('scroll', () => {
-    let current = '';
+    if (scrollTimeout) return;
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.scrollY >= (sectionTop - 150)) {
-            current = section.getAttribute('id');
-        }
-    });
+    scrollTimeout = setTimeout(() => {
+        let current = '';
 
-    navItems.forEach(a => {
-        a.classList.remove('active');
-        const href = a.getAttribute('href');
-        if (current && href === `#${current}`) {
-            a.classList.add('active');
-        }
-    });
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            // No need for sectionHeight in this logic if we just check >= top-150
+            if (window.scrollY >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(a => {
+            a.classList.remove('active');
+            const href = a.getAttribute('href');
+            if (current && href === `#${current}`) {
+                a.classList.add('active');
+            }
+        });
+
+        scrollTimeout = null;
+    }, 100); // Throttle to run at most every 100ms
 });
 
 const observerOptions = {
