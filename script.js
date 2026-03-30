@@ -168,5 +168,5 @@ document.querySelectorAll('.video-facade').forEach(facade => {
         this.classList.remove('video-facade'); // Remove class to prevent re-triggering style
         this.style.cursor = 'default';
         this.style.backgroundImage = 'none';
-    });
+    }, { once: true });
 });
